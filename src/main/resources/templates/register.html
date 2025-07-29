@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Register - WealthPulse</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .register-container {
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(15px);
+      padding: 40px 35px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      width: 360px;
+      max-width: 90vw;
+      text-align: center;
+      color: #fff;
+    }
+
+    h2 {
+      margin-bottom: 25px;
+      font-weight: 800;
+      font-size: 2rem;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    label {
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      padding: 12px 15px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      outline: none;
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+
+    input::placeholder {
+      color: #ddd;
+    }
+
+    input:focus {
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 8px #00c6ff;
+    }
+
+    .btn {
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      border: none;
+      border-radius: 50px;
+      padding: 13px 0;
+      font-size: 1rem;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0, 198, 255, 0.5);
+      transition: 0.4s ease;
+    }
+
+    .btn:hover {
+      background: linear-gradient(90deg, #00d2ff, #3a47d5);
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(0, 198, 255, 0.7);
+    }
+
+    .message {
+      margin-top: 20px;
+      font-size: 0.9rem;
+    }
+
+    .message a {
+      color: #00c6ff;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .message a:hover {
+      text-decoration: underline;
+      color: #00e0ff;
+    }
+
+    .alert {
+      padding: 10px 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .alert-error {
+      background-color: #e74c3c;
+      color: #fff;
+    }
+
+    .alert-success {
+      background-color: #27ae60;
+      color: #fff;
+    }
+            .back-home {
+      display: block;
+      width: fit-content;
+      margin: 40px auto 0 auto;
+      padding: 12px 28px;
+      font-size: 1rem;
+      text-align: center;
+      color: #fff;
+      background-color: #00aaff;
+      border: none;
+      border-radius: 30px;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0, 170, 255, 0.4);
+      transition: background 0.3s, transform 0.2s;
+    }
+    
+  </style>
+</head>
+<body>
+
+  <div class="register-container">
+
+    <h2>Register</h2>
+
+    <form th:action="@{/register}" method="post">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" placeholder="Choose a username" required />
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="Create a password" required />
+
+      <button type="submit" class="btn">Sign Up</button>
+    </form>
+
+    <div class="message">
+      Already have an account? <a href="/login">Login here</a>
+    </div>
+<a href="/" class="back-home">🏠 Back to Home</a>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>WealthPulse</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    h2, h3, h4 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 30px;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 0.95rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
+    .delete-btn {
+      background-color: #dc3545;
+      color: white;
+      padding: 7px 14px;
+      font-size: 0.85rem;
+      text-decoration: none;
+      border-radius: 6px;
+      margin-left: 10px;
+      transition: background 0.3s ease;
+    }
+
+    .delete-btn:hover {
+      background-color: #b02a37;
+    }
+
+    form.form-control {
+      background-color: #f1f3f5;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+
+    input[type="text"], input[type="number"], input[type="date"] {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0 16px;
+      border: 1px solid #ced4da;
+      border-radius: 6px;
+      font-size: 0.95rem;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: block;
+      margin-top: 10px;
+      color: #333;
+    }
+
+    .inc-exp-container {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .inc-exp-container div {
+      flex: 1;
+      text-align: center;
+    }
+
+    .money-plus {
+      color: #28a745;
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    .money-minus {
+      color: #dc3545;
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    ul.list {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul.list li {
+      background-color: #ffffff;
+      border: 1px solid #dee2e6;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    ul.list li form div {
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+
+    .logout-section {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      padding: 15px 30px;
+      background: #ffffff;
+      border-bottom: 1px solid #dee2e6;
+    }
+
+    @media screen and (max-width: 768px) {
+      .inc-exp-container {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .logout-section {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="logout-section">
+  <form th:action="@{/logout}" method="post">
+    <button type="submit" class="btn">Logout</button>
+  </form>
+</div>
+
+<h2>WealthPulse</h2>
+
+<div class="container">
+  <h4>Welcome, <span th:text="${username}"></span></h4>
+
+  <!-- ✅ Summary Section -->
+  <div class="inc-exp-container">
+    <div>
+      <h4>Total Investment</h4>
+      <p class="money-plus">₹<span th:text="${totalInvestment}">0</span></p>
+    </div>
+    <div>
+      <h4>Total Profit</h4>
+      <p th:class="${totalProfit >= 0} ? 'money-plus' : 'money-minus'">
+        ₹<span th:text="${totalProfit}">0</span>
+      </p>
+    </div>
+    <div>
+      <h4>Total Tax</h4>
+      <p class="money-minus">₹<span th:text="${totalTax}">0</span></p>
+    </div>
+  </div>
+
+  <!-- ✅ Add New Investment -->
+  <h3>Add New Investment</h3>
+  <form th:action="@{/investments/add}" method="post" class="form-control">
+    <label>Company</label>
+    <input type="text" name="company" required />
+
+    <label>Amount Invested</label>
+    <input type="number" name="amountInvested" required />
+
+    <label>Investment Date</label>
+    <input type="date" name="investmentDate" required />
+
+    <button class="btn" type="submit">Add Investment</button>
+  </form>
+
+  <!-- ✅ List of Investments -->
+  <h3>All Investments</h3>
+  <ul class="list">
+    <li th:each="inv : ${investments}">
+      <form th:action="@{/investments/update}" method="post">
+        <input type="hidden" name="id" th:value="${inv.id}" />
+
+        <div><strong>Company:</strong> <span th:text="${inv.company}"></span></div>
+        <div><strong>Amount:</strong> ₹<span th:text="${inv.amountInvested}"></span></div>
+        <div><strong>Investment Date:</strong> <span th:text="${inv.investmentDate}"></span></div>
+
+        <div><strong>Withdrawal Date:</strong>
+          <input type="date" name="withdrawalDate" th:value="${inv.withdrawalDate}" />
+        </div>
+
+        <div><strong>Resultant Amount:</strong>
+          <input type="number" name="resultantAmount" th:value="${inv.resultantAmount}" />
+        </div>
+
+        <div><strong>Profit:</strong> ₹<span th:text="${inv.profit}">0</span></div>
+        <div><strong>Tax:</strong> ₹<span th:text="${inv.tax}">0</span></div>
+
+        <div>
+          <button class="btn" type="submit">Update</button>
+          <a th:href="@{'/investments/delete/' + ${inv.id}}" class="delete-btn">Delete</a>
+        </div>
+      </form>
+    </li>
+  </ul>
+</div>
+
+</body>
+</html>
