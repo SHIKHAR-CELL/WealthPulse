@@ -5,6 +5,7 @@ import lombok.*;
 
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
+	@Table(name = "users")
 public class User {
     @Id @GeneratedValue
     private Long id;
