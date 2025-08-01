@@ -4,275 +4,311 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Welcome to WealthPulse</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    :root {
+      --primary-color: #667eea;
+      --secondary-color: #764ba2;
+      --dark-color: #1a1a2e;
+      --light-color: #f8f9fa;
     }
-
-    html, body {
-      height: 100%;
-      overflow: hidden;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-    }
-
-    .container {
-      display: flex;
-      height: 100vh;
-      width: 100vw;
-    }
-
-    .left {
-      flex: 6;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 40px;
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
       color: white;
+      overflow-x: hidden;
+    }
+    
+    .hero-section {
+      min-height: 100vh;
       background: url('https://images.unsplash.com/photo-1521790363824-5c1d6fdb4b0e?auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
       position: relative;
     }
-
-    .left::before {
+    
+    .hero-section::before {
       content: "";
       position: absolute;
       inset: 0;
       background: rgba(0, 0, 0, 0.6);
       z-index: 0;
     }
-
-    .left .content {
+    
+    .hero-content {
       position: relative;
       z-index: 1;
-      max-width: 600px;
-      text-align: center;
     }
-
-    .left h1 {
-      font-size: 3rem;
-      margin-bottom: 20px;
+    
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
       text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
     }
-
-    .left p {
-      font-size: 1.1rem;
-      margin-bottom: 30px;
-      line-height: 1.6;
-      color: #e0e0e0;
+    
+    .hero-subtitle {
+      font-size: 1.25rem;
+      margin-bottom: 2.5rem;
+      opacity: 0.9;
     }
-
-    .btn-group {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      padding: 14px 40px;
-      font-size: 1rem;
+    
+    .btn-custom {
+      padding: 12px 30px;
       border-radius: 30px;
       font-weight: 600;
-      text-decoration: none;
-      color: #fff;
-      cursor: pointer;
-      box-shadow: 0 5px 15px rgba(102,126,234,0.5);
       transition: all 0.3s ease;
-      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
       border: none;
+      color: white;
+      box-shadow: 0 5px 15px rgba(102,126,234,0.5);
     }
-
-    .btn:hover {
-      background: #fff;
-      color: #764ba2;
+    
+    .btn-custom:hover {
+      background: white;
+      color: var(--secondary-color);
+      transform: translateY(-3px);
       box-shadow: 0 10px 20px rgba(118,75,162,0.6);
-      transform: scale(1.05);
     }
-
-    .right {
-      flex: 4;
+    
+    .features-section {
       background: rgba(255, 255, 255, 0.12);
       backdrop-filter: blur(12px);
-      color: #fff;
-      padding: 40px 30px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      text-align: center;
+      padding: 4rem 0;
     }
-
-    .right h2 {
-      font-size: 1.8rem;
-      margin-bottom: 15px;
+    
+    .section-title {
+      font-size: 2.2rem;
       font-weight: 700;
-      color: #ffffff;
-      text-shadow: 0 0 3px rgba(255,255,255,0.5);
+      margin-bottom: 1.5rem;
+      position: relative;
     }
-
-    .right p {
-      max-width: 400px;
-      margin-bottom: 25px;
-      font-size: 1rem;
-      font-weight: 400;
-      line-height: 1.4;
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: white;
     }
-
-    .feature-cards {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      flex-wrap: nowrap;
-      max-width: 440px;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.15);
-      color: #fff;
-      flex: 1 0 130px;
-      padding: 20px 15px;
-      border-radius: 12px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: default;
-    }
-
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-    }
-
-    .card h3 {
+    
+    .section-subtitle {
       font-size: 1.1rem;
-      margin-bottom: 12px;
+      max-width: 600px;
+      margin: 0 auto 3rem;
+      opacity: 0.9;
     }
-
-    .card p {
-      font-size: 0.85rem;
-      line-height: 1.4;
+    
+    .feature-card {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 2rem 1.5rem;
+      transition: all 0.3s ease;
+      height: 100%;
+      border: 1px solid rgba(255,255,255,0.1);
     }
-
-    @media (max-width: 900px) {
-      .container {
-        flex-direction: column;
-      }
-
-      .left, .right {
-        flex: none;
-        width: 100%;
-        height: 50vh;
-      }
-
-      .feature-cards {
-        flex-wrap: wrap;
-      }
+    
+    .feature-card:hover {
+      transform: translateY(-10px);
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
     }
-
+    
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: white;
+    }
+    
+    .feature-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    
+    .tax-section {
+      margin-top: 3rem;
+      background: rgba(0,0,0,0.2);
+      padding: 2rem;
+      border-radius: 12px;
+    }
+    
+    .tax-title {
+      font-size: 1.6rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .tax-list {
+      list-style: none;
+      padding: 0;
+      font-size: 1.2rem;
+    }
+    
+    .tax-list li {
+      margin-bottom: 0.8rem;
+    }
+    
+    .short-term {
+      color: #ff6b6b;
+    }
+    
+    .long-term {
+      color: #51cf66;
+    }
+    
     .footer {
+      background-color: var(--dark-color);
+      padding: 1.5rem 0;
       position: fixed;
       bottom: 0;
       width: 100%;
-      background-color: #000;
-      color: #fff;
-      padding: 10px 30px;
-      z-index: 999;
     }
-
-    .footer-content {
-      display: flex;
-      justify-content: start;
-      align-items: center;
-      gap: 37.8px;
+    
+    .developer-info {
+      font-size: 1rem;
     }
-
-    .footer-content p {
-      margin: 0;
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: #ffffff;
+    
+    .social-icon {
+      color: white;
+      font-size: 1.3rem;
+      margin-right: 1rem;
+      transition: all 0.3s ease;
     }
-
-    .social-icons a {
-      display: inline-block;
-      margin-right: 10px;
-      transition: transform 0.2s ease;
+    
+    .social-icon:hover {
+      color: var(--primary-color);
+      transform: scale(1.2);
     }
-
-    .social-icons a:hover {
-      transform: scale(1.15);
+    
+    @media (max-width: 992px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.1rem;
+      }
+      
+      .section-title {
+        font-size: 1.8rem;
+      }
     }
-
-    .social-icons img {
-      width: 22px;
-      height: 22px;
-      filter: brightness(1.2);
+    
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2rem;
+      }
+      
+      .btn-custom {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
 <body>
 
-<div class="container">
-  <section class="left">
-    <div class="content">
-      <h1>WealthPulse</h1>
-      <p>Track your stock market investments effortlessly — Calculate profits, taxes and monitor your portfolio all in one place.</p>
-      <div class="btn-group">
-        <a href="/login" class="btn">Login</a>
-        <a href="/register" class="btn">Sign Up</a>
-        <a href="/news" class="btn">📈 Latest Indian Stock Market News</a>
+<!-- Hero Section -->
+<section class="hero-section d-flex align-items-center">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 text-center hero-content">
+        <h1 class="hero-title">WealthPulse</h1>
+        <p class="hero-subtitle">Track your stock market investments effortlessly — Calculate profits, taxes and monitor your portfolio all in one place.</p>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+          <a href="/login" class="btn btn-custom">Login</a>
+          <a href="/register" class="btn btn-custom">Sign Up</a>
+          <a href="/news" class="btn btn-custom"><i class="fas fa-chart-line me-2"></i>Latest Indian Stock Market News</a>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="right">
-    <h2>Why Choose WealthPulse?</h2>
-    <p>Manage your investments with confidence using our intuitive platform designed for investors of all levels.</p>
-    <div class="feature-cards">
-      <div class="card">
-        <h3>Easy Tracking</h3>
-        <p>Track and update your investments with a clean and simple dashboard.</p>
-      </div>
-      <div class="card">
-        <h3>Profit & Tax</h3>
-        <p>Automatic profit and tax calculation based on date of withdrawal.</p>
-      </div>
-      <div class="card">
-        <h3>100% Secure</h3>
-        <p>We use Spring Security to ensure your data is always protected.</p>
+<!-- Features Section -->
+<section class="features-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10 text-center">
+        <h2 class="section-title">Why Choose WealthPulse?</h2>
+        <p class="section-subtitle">Manage your investments with confidence using our intuitive platform designed for investors of all levels.</p>
+        
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-chart-pie"></i>
+              </div>
+              <h3 class="feature-title">Easy Tracking</h3>
+              <p>Track and update your investments with a clean and simple dashboard.</p>
+            </div>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-calculator"></i>
+              </div>
+              <h3 class="feature-title">Profit & Tax</h3>
+              <p>Automatic profit and tax calculation based on date of withdrawal.</p>
+            </div>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-lock"></i>
+              </div>
+              <h3 class="feature-title">100% Secure</h3>
+              <p>We use Spring Security to ensure your data is always protected.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="tax-section text-center">
+          <h3 class="tax-title">Capital Gains Tax Rates (India)</h3>
+          <ul class="tax-list">
+            <li><strong>Short-term</strong> (&lt; 1 year): <span class="short-term">20%</span></li>
+            <li><strong>Long-term</strong> (≥ 1 year): <span class="long-term">12.5%</span></li>
+          </ul>
+        </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="tax-info">
-      <br />
-     <h3 style="font-size: 1.6rem;">Capital Gains Tax Rates (India)</h3>
-     <ul style="font-size: 1.2rem;">
-  <li><strong>Short-term</strong> (&lt; 1 year): <span style="color:red;">20%</span></li>
-  <li><strong>Long-term</strong> (≥ 1 year): <span style="color:green;">12.5%</span></li>
-</ul>
-
-    </div>
-  </section>
-</div>
-
+<!-- Footer -->
 <footer class="footer">
-  <div class="footer-content">
-    <p>👩‍💻 Meet the Developer: <strong>Shikhar Bhardwaj</strong></p>
-    <div class="social-icons">
-      <a href="https://www.instagram.com/shikhar_bhardwaj__" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram" />
-      </a>
-      <a href="https://www.linkedin.com/in/shikharbhardwaj123" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" />
-      </a>
-      <a href="mailto:bhardwajshikhar934@gmail.com">
-        <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email" />
-      </a>
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <p class="developer-info mb-0">
+          <i class="fas fa-laptop-code me-2"></i>Meet the Developer: <strong>Shikhar Bhardwaj</strong>
+        </p>
+      </div>
+      <div class="col-md-6 text-md-end">
+        <a href="https://www.instagram.com/shikhar_bhardwaj__" target="_blank" class="social-icon">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/shikharbhardwaj123" target="_blank" class="social-icon">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="mailto:bhardwajshikhar934@gmail.com" class="social-icon">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </div>
     </div>
   </div>
 </footer>
 
+<!-- Bootstrap JS Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </body>
 </html>
